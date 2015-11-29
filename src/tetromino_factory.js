@@ -2,7 +2,12 @@ class TetrominoFactory {
   static generate() {
     let tetrominos = [
       ITetromino,
-      TTetromino
+      JTetromino,
+      LTetromino,
+      OTetromino,
+      STetromino,
+      TTetromino,
+      ZTetromino
     ];
 
     let randomIndex = TetrominoFactory.randomNumber(0, tetrominos.length);

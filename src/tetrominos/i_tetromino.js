@@ -1,4 +1,8 @@
 class ITetromino extends Tetromino {
+  color() {
+    "cyan"
+  }
+
   generateShapes() {
     return [
       [
