@@ -5,7 +5,11 @@ class Game {
   }
 
   start() {
-    this.canvasContext.fillRect(0, 0, 300, 300);
+    this.render(this.canvasContext);
+  }
+
+  render(g) {
+    g.fillRect(0, 0, 300, 300);
   }
 }
 
