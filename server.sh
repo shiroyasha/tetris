@@ -2,6 +2,6 @@
 
 mkdir -p build
 
-babel app.js --watch --out-file build/app.js &
+babel src --watch --out-dir build &
 
 python -m SimpleHTTPServer 3000

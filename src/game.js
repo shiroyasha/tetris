@@ -34,9 +34,3 @@ class Game {
     g.fillRect(0, 0, 300, 300);
   }
 }
-
-var canvas = document.getElementById("gameCanvas");
-
-var game = new Game(canvas);
-
-game.start();
