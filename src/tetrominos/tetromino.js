@@ -1,14 +1,16 @@
 class Tetromino {
   constructor() {
     this.cellSize = 30;
+    this.shapes = this.generateShapes();
+    this.rotationIndex = 0;
   }
 
-  shapeMatrix() {
-    throw new Error("Shape matrix is not implemented");
+  generateShapes() {
+    throw new Error("Not implemented");
   }
 
   render(g) {
-    let shape = this.shapeMatrix();
+    let shape = this.shapes[this.rotationIndex];
 
     for(let i=0; i < 4; i++) {
       for(let j=0; j < 4; j++) {
@@ -22,5 +24,13 @@ class Tetromino {
   }
 
   update(dt) {
+  }
+
+  rotateLeft() {
+    this.rotationIndex = (this.rotationIndex + 1) % this.shapes.length;
+  }
+
+  rotateRight() {
+    this.rotationIndex = (this.rotationIndex - 1) % this.shapes.length;
   }
 }

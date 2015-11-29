@@ -9,6 +9,7 @@ class Game {
     this.loop();
 
     this.tetromino = new TetrominoFactory.generate();
+    this.tetromino.rotateLeft();
   }
 
   loop() {
