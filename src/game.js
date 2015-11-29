@@ -7,6 +7,8 @@ class Game {
 
   start() {
     this.loop();
+
+    this.tetromino = new Tetromino();
   }
 
   loop() {
@@ -27,10 +29,10 @@ class Game {
   }
 
   update(dt) {
-    //console.log(dt);
+    this.tetromino.update(dt);
   }
 
   render(g) {
-    g.fillRect(0, 0, 300, 300);
+    this.tetromino.render(g);
   }
 }
