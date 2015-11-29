@@ -1,5 +1,6 @@
 class Tetromino {
   constructor() {
+    this.cellSize = 30;
   }
 
   shapeMatrix() {
@@ -11,11 +12,13 @@ class Tetromino {
 
     for(let i=0; i < 4; i++) {
       for(let j=0; j < 4; j++) {
-        if(shape[i][j] === 1) {
-          g.fillRect(j*100, i*100, 100, 100);
-        }
+        if(shape[i][j] === 1) { this.renderCell(g, j, i) }
       }
     }
+  }
+
+  renderCell(g, x, y) {
+    g.fillRect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
   }
 
   update(dt) {

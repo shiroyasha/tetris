@@ -8,7 +8,7 @@ class Game {
   start() {
     this.loop();
 
-    this.tetromino = new ITetromino();
+    this.tetromino = new TetrominoFactory.generate();
   }
 
   loop() {
