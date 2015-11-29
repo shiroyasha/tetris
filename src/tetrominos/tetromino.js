@@ -9,6 +9,10 @@ class Tetromino {
     throw new Error("Not implemented");
   }
 
+  color() {
+    throw new Error("Not implemented");
+  }
+
   render(g) {
     let shape = this.shapes[this.rotationIndex];
 
@@ -20,6 +24,7 @@ class Tetromino {
   }
 
   renderCell(g, x, y) {
+    g.fillStyle = this.color();
     g.fillRect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
   }
 

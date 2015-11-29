@@ -1,6 +1,6 @@
 class TTetromino extends Tetromino {
   color() {
-    "purple"
+    return "purple";
   }
 
   generateShapes() {

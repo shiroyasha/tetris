@@ -1,6 +1,6 @@
 class STetromino extends Tetromino {
   color() {
-    "green"
+    return "green";
   }
 
   generateShapes() {

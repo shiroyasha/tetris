@@ -1,6 +1,6 @@
 class ZTetromino extends Tetromino {
   color() {
-    "red"
+    return "red";
   }
 
   generateShapes() {

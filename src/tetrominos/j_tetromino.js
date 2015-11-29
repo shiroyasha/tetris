@@ -1,6 +1,6 @@
 class JTetromino extends Tetromino {
   color() {
-    "blue"
+    return "blue";
   }
 
   generateShapes() {
