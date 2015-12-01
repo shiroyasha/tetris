@@ -22,6 +22,7 @@ class Tetromino {
   }
 
   filledCells() {
+    let shape = this.currentShape();
     let result = [];
 
     for(let i=0; i < 4; i++) {

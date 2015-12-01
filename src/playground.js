@@ -8,6 +8,7 @@ class Playground {
 
     this.tetromino = null;
     this.timeSinceLastMove = 0;
+    this.moveInterval = 300;
   }
 
   createEmptyMatrix() {
@@ -91,12 +92,24 @@ class Playground {
   }
 
   canTetrominoFallFurther() {
-    return this.tetromino.position.y < this.height - 4;
+    let x = this.tetromino.position.x;
+    let y = this.tetromino.position.y;
+
+    let filledPositions = this.tetromino.filledCells();
+
+    for(let i=0; i < filledPositions.length; i++) {
+      let position = filledPositions[i];
+
+      if(position.y + y + 1 === this.height) return false;
+      if(this.matrix[position.y + y + 1][position.x + x]) return false;
+    }
+
+    return true;
   }
 
   updateTetromino() {
-    while(this.timeSinceLastMove > 500) {
-      this.timeSinceLastMove -= 500;
+    while(this.timeSinceLastMove > this.moveInterval) {
+      this.timeSinceLastMove -= this.moveInterval;
 
       let position = {x: this.tetromino.position.x, y: this.tetromino.position.y + 1};
 
