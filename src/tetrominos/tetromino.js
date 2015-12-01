@@ -17,8 +17,12 @@ class Tetromino {
     this.position = position;
   }
 
+  currentShape() {
+    return this.shapes[this.rotationIndex];
+  }
+
   render(g) {
-    let shape = this.shapes[this.rotationIndex];
+    let shape = this.currentShape();
 
     for(let i=0; i < 4; i++) {
       for(let j=0; j < 4; j++) {

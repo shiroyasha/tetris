@@ -50,7 +50,7 @@ class Playground {
     let cell = this.matrix[y][x];
 
     if(cell) {
-      g.fillStyle = color;
+      g.fillStyle = cell;
       g.fillRect(x*this.cellSize, (y-4)*this.cellSize, this.cellSize, this.cellSize);
     } else {
       g.strokeStyle = "#eeeeee";
@@ -68,6 +68,7 @@ class Playground {
     if(this.canTetrominoFallFurther()) {
       this.updateTetromino();
     } else {
+      this.integrateTetromino();
       this.nextTetramino();
     }
   }
@@ -75,6 +76,18 @@ class Playground {
   nextTetramino() {
     this.tetromino = new TetrominoFactory.generate();
     this.tetromino.setPosition({ x: 4, y: 0 });
+  }
+
+  integrateTetromino() {
+    let shape = this.tetromino.currentShape();
+
+    for(let i=0; i < 4; i++) {
+      for(let j=0; j < 4; j++) {
+        if(shape[i][j] === 1) {
+          this.matrix[i+this.tetromino.position.y][j+this.tetromino.position.x] = this.tetromino.color();
+        }
+      }
+    }
   }
 
   canTetrominoFallFurther() {
