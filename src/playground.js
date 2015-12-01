@@ -7,6 +7,7 @@ class Playground {
     this.matrix = this.createEmptyMatrix();
 
     this.tetromino = null;
+    this.timeSinceLastMove = 0;
   }
 
   createEmptyMatrix() {
@@ -63,6 +64,21 @@ class Playground {
     if(this.tetromino === null) {
       this.tetromino = new TetrominoFactory.generate();
       this.tetromino.setPosition({ x: 4, y: 10 });
+    }
+
+    this.timeSinceLastMove += dt;
+    this.updateTetromino();
+  }
+
+  updateTetromino() {
+    while(this.timeSinceLastMove > 500) {
+      this.timeSinceLastMove -= 500;
+
+      if(this.tetromino.position.y < this.height - 4) {
+        let position = {x: this.tetromino.position.x, y: this.tetromino.position.y + 1};
+
+        this.tetromino.setPosition(position);
+      }
     }
   }
 }
