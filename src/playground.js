@@ -5,6 +5,8 @@ class Playground {
     this.cellSize = 30;
 
     this.matrix = this.createEmptyMatrix();
+
+    this.tetromino = null;
   }
 
   createEmptyMatrix() {
@@ -33,6 +35,15 @@ class Playground {
         }
       }
     }
+
+    if(this.tetromino) {
+      g.save();
+
+      g.translate(this.tetromino.position.x * this.cellSize, this.tetromino.position.y * this.cellSize);
+
+      this.tetromino.render(g);
+      g.restore();
+    }
   }
 
   renderCell(g, color, x, y) {
@@ -49,6 +60,9 @@ class Playground {
   }
 
   update(dt) {
-
+    if(this.tetromino === null) {
+      this.tetromino = new TetrominoFactory.generate();
+      this.tetromino.setPosition({ x: 4, y: 10 });
+    }
   }
 }

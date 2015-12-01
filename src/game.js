@@ -9,8 +9,6 @@ class Game {
     this.loop();
 
     this.playground = new Playground();
-    this.tetromino = new TetrominoFactory.generate();
-    this.tetromino.rotateLeft();
   }
 
   loop() {
@@ -30,12 +28,10 @@ class Game {
   }
 
   update(dt) {
-    this.tetromino.update(dt);
     this.playground.update(dt);
   }
 
   render(g) {
-    this.tetromino.render(g);
     this.playground.render(g);
   }
 }

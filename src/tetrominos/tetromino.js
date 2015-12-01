@@ -1,5 +1,5 @@
 class Tetromino {
-  constructor() {
+  constructor(position) {
     this.cellSize = 30;
     this.shapes = this.generateShapes();
     this.rotationIndex = 0;
@@ -11,6 +11,10 @@ class Tetromino {
 
   color() {
     throw new Error("Not implemented");
+  }
+
+  setPosition(position) {
+    this.position = position;
   }
 
   render(g) {
