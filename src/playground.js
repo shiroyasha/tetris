@@ -61,24 +61,33 @@ class Playground {
   }
 
   update(dt) {
-    if(this.tetromino === null) {
-      this.tetromino = new TetrominoFactory.generate();
-      this.tetromino.setPosition({ x: 4, y: 10 });
-    }
+    if(this.tetromino === null) { this.nextTetramino() }
 
     this.timeSinceLastMove += dt;
-    this.updateTetromino();
+
+    if(this.canTetrominoFallFurther()) {
+      this.updateTetromino();
+    } else {
+      this.nextTetramino();
+    }
+  }
+
+  nextTetramino() {
+    this.tetromino = new TetrominoFactory.generate();
+    this.tetromino.setPosition({ x: 4, y: 10 });
+  }
+
+  canTetrominoFallFurther() {
+    return this.tetromino.position.y < this.height - 4;
   }
 
   updateTetromino() {
     while(this.timeSinceLastMove > 500) {
       this.timeSinceLastMove -= 500;
 
-      if(this.tetromino.position.y < this.height - 4) {
-        let position = {x: this.tetromino.position.x, y: this.tetromino.position.y + 1};
+      let position = {x: this.tetromino.position.x, y: this.tetromino.position.y + 1};
 
-        this.tetromino.setPosition(position);
-      }
+      this.tetromino.setPosition(position);
     }
   }
 }
