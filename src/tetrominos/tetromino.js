@@ -21,6 +21,18 @@ class Tetromino {
     return this.shapes[this.rotationIndex];
   }
 
+  filledCells() {
+    let result = [];
+
+    for(let i=0; i < 4; i++) {
+      for(let j=0; j < 4; j++) {
+        if(shape[i][j] === 1) { result.push({x: j, y: i}) }
+      }
+    }
+
+    return result;
+  }
+
   render(g) {
     let shape = this.currentShape();
 
