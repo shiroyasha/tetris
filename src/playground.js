@@ -61,9 +61,9 @@ class Playground {
   }
 
   update(dt) {
-    if(this.tetromino === null) { this.nextTetramino() }
-
     this.timeSinceLastMove += dt;
+
+    if(this.tetromino === null) { this.nextTetramino() }
 
     if(this.canTetrominoFallFurther()) {
       this.updateTetromino();
