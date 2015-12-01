@@ -29,13 +29,7 @@ class Playground {
 
     for(let i=0; i < this.height; i++) {
       for(let j=0; j < this.width; j++) {
-        let cell = this.matrix[i][j];
-
-        if(cell) {
-          this.renderCell(g, cell, j, i);
-        } else {
-          this.renderEmptyCell(g, j, i);
-        }
+        this.renderCell(g, j, i);
       }
     }
   }
@@ -52,17 +46,18 @@ class Playground {
     g.restore();
   }
 
-  renderCell(g, color, x, y) {
-    g.fillStyle = color;
-    g.fillRect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
-  }
+  renderCell(g, x, y) {
+    let cell = this.matrix[y][x];
 
-  renderEmptyCell(g, x, y) {
-    g.strokeStyle = "#eeeeee";
-
-    g.beginPath();
-    g.rect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
-    g.stroke();
+    if(cell) {
+      g.fillStyle = color;
+      g.fillRect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
+    } else {
+      g.strokeStyle = "#eeeeee";
+      g.beginPath();
+      g.rect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
+      g.stroke();
+    }
   }
 
   update(dt) {
