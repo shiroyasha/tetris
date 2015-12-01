@@ -1,6 +1,6 @@
 class Playground {
   constructor() {
-    this.height = 22;
+    this.height = 24;
     this.width = 10;
     this.cellSize = 30;
 
@@ -27,7 +27,7 @@ class Playground {
   render(g) {
     if(this.tetromino) { this.renderTetromino(g); }
 
-    for(let i=0; i < this.height; i++) {
+    for(let i=4; i < this.height; i++) {
       for(let j=0; j < this.width; j++) {
         this.renderCell(g, j, i);
       }
@@ -38,7 +38,7 @@ class Playground {
     g.save();
 
     let xTranslation = this.tetromino.position.x * this.cellSize;
-    let yTranslation = this.tetromino.position.y * this.cellSize;
+    let yTranslation = (this.tetromino.position.y-4) * this.cellSize;
 
     g.translate(xTranslation, yTranslation);
 
@@ -51,11 +51,11 @@ class Playground {
 
     if(cell) {
       g.fillStyle = color;
-      g.fillRect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
+      g.fillRect(x*this.cellSize, (y-4)*this.cellSize, this.cellSize, this.cellSize);
     } else {
       g.strokeStyle = "#eeeeee";
       g.beginPath();
-      g.rect(x*this.cellSize, y*this.cellSize, this.cellSize, this.cellSize);
+      g.rect(x*this.cellSize, (y-4)*this.cellSize, this.cellSize, this.cellSize);
       g.stroke();
     }
   }
@@ -74,7 +74,7 @@ class Playground {
 
   nextTetramino() {
     this.tetromino = new TetrominoFactory.generate();
-    this.tetromino.setPosition({ x: 4, y: 10 });
+    this.tetromino.setPosition({ x: 4, y: 0 });
   }
 
   canTetrominoFallFurther() {
