@@ -25,6 +25,8 @@ class Playground {
   }
 
   render(g) {
+    if(this.tetromino) { this.renderTetromino(g); }
+
     for(let i=0; i < this.height; i++) {
       for(let j=0; j < this.width; j++) {
         let cell = this.matrix[i][j];
@@ -36,18 +38,18 @@ class Playground {
         }
       }
     }
+  }
 
-    if(this.tetromino) {
-      g.save();
+  renderTetromino(g) {
+    g.save();
 
-      let xTranslation = this.tetromino.position.x * this.cellSize;
-      let yTranslation = this.tetromino.position.y * this.cellSize;
+    let xTranslation = this.tetromino.position.x * this.cellSize;
+    let yTranslation = this.tetromino.position.y * this.cellSize;
 
-      g.translate(xTranslation, yTranslation);
+    g.translate(xTranslation, yTranslation);
 
-      this.tetromino.render(g);
-      g.restore();
-    }
+    this.tetromino.render(g);
+    g.restore();
   }
 
   renderCell(g, color, x, y) {
