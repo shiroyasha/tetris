@@ -40,7 +40,10 @@ class Playground {
     if(this.tetromino) {
       g.save();
 
-      g.translate(this.tetromino.position.x * this.cellSize, this.tetromino.position.y * this.cellSize);
+      let xTranslation = this.tetromino.position.x * this.cellSize;
+      let yTranslation = this.tetromino.position.y * this.cellSize;
+
+      g.translate(xTranslation, yTranslation);
 
       this.tetromino.render(g);
       g.restore();
