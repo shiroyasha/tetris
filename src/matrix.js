@@ -8,8 +8,17 @@ class Matrix {
     this.generateCells();
   }
 
-  isFilled(x, y) {
-    return this.cells[y][x];
+  isValidPosition(position) {
+    return position.y < this.height && position.y >= 0 &&
+           position.x < this.width && position.x >= 0;
+  };
+
+  isEmpty(position) {
+    return !this.isFilled(position);
+  }
+
+  isFilled(position) {
+    return this.cells[position.y][position.x];
   }
 
   generateCells() {

@@ -37,7 +37,12 @@ class Playground {
 
     if(this.tetromino === null) { this.nextTetramino() }
 
-    if(this.canTetrominoFallFurther()) {
+    let nextPosition = {
+      x: this.tetromino.position.x,
+      y: this.tetromino.position.y + 1
+    };
+
+    if(this.canTetrominoMoveTo(nextPosition)) {
       this.updateTetromino();
     } else {
       this.matrix.integrateTetromino(this.tetromino);
@@ -50,20 +55,15 @@ class Playground {
     this.tetromino.setPosition({ x: 4, y: 0 });
   }
 
-  canTetrominoFallFurther() {
-    let x = this.tetromino.position.x;
-    let y = this.tetromino.position.y;
+  canTetrominoMoveTo(position) {
+    let matrixPositions = this.tetromino.filledCells().map((tetrominoPosition) => {
+      return { x: tetrominoPosition.x + position.x, y: tetrominoPosition.y + position.y };
+    });
 
-    let filledPositions = this.tetromino.filledCells();
-
-    for(let i=0; i < filledPositions.length; i++) {
-      let position = filledPositions[i];
-
-      if(position.y + y + 1 === this.matrix.height) return false;
-      if(this.matrix.isFilled(position.x + x, position.y + y + 1)) return false;
-    }
-
-    return true;
+    return matrixPositions.every((position) => {
+      return this.matrix.isValidPosition(position) &&
+             this.matrix.isEmpty(position);
+    });
   }
 
   updateTetromino() {
