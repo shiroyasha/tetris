@@ -7,6 +7,13 @@ class Playground {
     this.tetromino = null;
     this.timeSinceLastMove = 0;
     this.moveInterval = 300;
+
+    this.handleTetraminoEvents();
+  }
+
+  handleTetraminoEvents() {
+    Events.onLeft(() => { if(this.tetromino) this.tetromino.position.x -= 1; });
+    Events.onRight(() => { if(this.tetromino) this.tetromino.position.x += 1; });
   }
 
   render(g) {
