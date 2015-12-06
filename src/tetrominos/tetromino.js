@@ -5,14 +5,6 @@ class Tetromino {
     this.rotationIndex = 0;
   }
 
-  generateShapes() {
-    throw new Error("Not implemented");
-  }
-
-  color() {
-    throw new Error("Not implemented");
-  }
-
   setPosition(position) {
     this.position = position;
   }
@@ -37,6 +29,13 @@ class Tetromino {
   }
 
   render(g) {
+    g.save();
+
+    let xTranslation = this.position.x * this.cellSize;
+    let yTranslation = (this.position.y - 4) * this.cellSize;
+
+    g.translate(xTranslation, yTranslation);
+
     let shape = this.currentShape();
 
     for(let i=0; i < 4; i++) {
@@ -44,6 +43,8 @@ class Tetromino {
         if(shape[i][j] === 1) { this.renderCell(g, j, i) }
       }
     }
+
+    g.restore();
   }
 
   renderCell(g, x, y) {

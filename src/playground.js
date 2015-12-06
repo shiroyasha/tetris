@@ -4,52 +4,54 @@ class Playground {
 
     this.matrix = new Matrix(10, 24);
 
-    this.timeSinceLastMove = 0;
+    this.timeSinceLastStep = 0;
     this.moveInterval = 300;
+    this.fastFall = false;
 
     this.handleTetraminoEvents();
-    this.nextTetramino();
+    this.nextTetromino();
   }
 
   handleTetraminoEvents() {
-    Events.onLeft(() => { this.tetromino.position.x -= 1; });
-    Events.onRight(() => { this.tetromino.position.x += 1; });
+    Events.onLeft(this.moveTetrominoBy.bind(this, {x: -1, y: 0}));
+    Events.onRight(this.moveTetrominoBy.bind(this, {x: 1, y: 0}));
+    Events.speedUp(() => { console.log("here"); this.fastFall = true; });
+    Events.resetSpeed(() => { console.log("down"); this.fastFall = false; });
   }
 
   render(g) {
-    if(this.tetromino) {
-      g.save();
-
-      let xTranslation = this.tetromino.position.x * this.cellSize;
-      let yTranslation = (this.tetromino.position.y-4) * this.cellSize;
-
-      g.translate(xTranslation, yTranslation);
-
-      this.tetromino.render(g);
-      g.restore();
-    }
-
+    this.tetromino.render(g);
     this.matrix.render(g);
   }
 
   update(dt) {
-    this.timeSinceLastMove += dt;
+    this.timeSinceLastStep += dt;
 
-    while(this.timeSinceLastMove > this.moveInterval) {
-      this.timeSinceLastMove -= this.moveInterval;
+    let stepTime = this.fastFall ? Math.floor(this.moveInterval/10) : this.moveInterval;
 
-      let nextPosition = Position.add(this.tetromino.position, {x: 0, y: 1});
+    while(this.timeSinceLastStep > stepTime) {
+      this.timeSinceLastStep -= stepTime;
 
-      if(this.canTetrominoMoveTo(nextPosition)) {
-        this.tetromino.setPosition(nextPosition);
-      } else {
-        this.matrix.integrateTetromino(this.tetromino);
-        this.nextTetramino();
-      }
+      this.nextStep();
     }
   }
 
-  nextTetramino() {
+  nextStep() {
+    let nextPosition = Position.add(this.tetromino.position, {x: 0, y: 1});
+
+    if(this.canTetrominoMoveTo(nextPosition)) {
+      this.tetromino.setPosition(nextPosition);
+    } else {
+      this.integrate();
+    }
+  }
+
+  integrate() {
+    this.matrix.integrateTetromino(this.tetromino);
+    this.nextTetromino();
+  }
+
+  nextTetromino() {
     this.tetromino = new TetrominoFactory.generate();
     this.tetromino.setPosition({ x: 4, y: 0 });
   }
@@ -61,5 +63,13 @@ class Playground {
 
     return this.matrix.areValidPositions(cellPositions) &&
            this.matrix.areEmptyPositions(cellPositions);
+  }
+
+  moveTetrominoBy(position) {
+    let newPosition = Position.add(this.tetromino.position, position);
+
+    if(this.canTetrominoMoveTo(newPosition)) {
+      this.tetromino.setPosition(newPosition);
+    }
   }
 }

@@ -6,7 +6,8 @@ class EventsHandler {
       right: [],
       rotateLeft: [],
       rotateRight: [],
-      fall: []
+      speedUp: [],
+      resetSpeed: [],
     };
 
     this.registerEventHandler();
@@ -14,6 +15,7 @@ class EventsHandler {
 
   registerEventHandler() {
     window.addEventListener("keydown", this.onKeyDown.bind(this), false);
+    window.addEventListener("keyup", this.onKeyUp.bind(this), false);
   }
 
   onLeft(action) {
@@ -32,26 +34,43 @@ class EventsHandler {
     this.callbacks.rotateRight.push(action);
   }
 
-  onFall(action) {
-    this.callbacks.fall.push(action);
+  speedUp(action) {
+    this.callbacks.speedUp.push(action);
+  }
+
+  resetSpeed(action) {
+    this.callbacks.resetSpeed.push(action);
   }
 
   onKeyDown(event) {
-    this.findCallbacks(event.keyCode).forEach((callback) => { callback(); });
+    this.findKeyDownCallbacks(event.keyCode).forEach((callback) => { callback(); });
   }
 
-  findCallbacks(keyCode) {
+  onKeyUp(event) {
+    this.findKeyUpCallbacks(event.keyCode).forEach((callback) => { callback(); });
+  }
+
+  findKeyDownCallbacks(keyCode) {
     switch(event.keyCode) {
       case 37:
         return this.callbacks.left;
       case 39:
         return this.callbacks.right;
       case 40:
-        return this.callbacks.fall;
+        return this.callbacks.speedUp;
       case 90:
         return this.callbacks.rotateLeft;
       case 88:
         return this.callbacks.rotateRight;
+      default:
+        return [];
+    }
+  }
+
+  findKeyUpCallbacks(keyCode) {
+    switch(event.keyCode) {
+      case 40:
+        return this.callbacks.resetSpeed;
       default:
         return [];
     }
