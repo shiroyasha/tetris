@@ -4,16 +4,16 @@ class Playground {
 
     this.matrix = new Matrix(10, 24);
 
-    this.tetromino = null;
     this.timeSinceLastMove = 0;
     this.moveInterval = 300;
 
     this.handleTetraminoEvents();
+    this.nextTetramino();
   }
 
   handleTetraminoEvents() {
-    Events.onLeft(() => { if(this.tetromino) this.tetromino.position.x -= 1; });
-    Events.onRight(() => { if(this.tetromino) this.tetromino.position.x += 1; });
+    Events.onLeft(() => { this.tetromino.position.x -= 1; });
+    Events.onRight(() => { this.tetromino.position.x += 1; });
   }
 
   render(g) {
@@ -35,18 +35,17 @@ class Playground {
   update(dt) {
     this.timeSinceLastMove += dt;
 
-    if(this.tetromino === null) { this.nextTetramino() }
+    while(this.timeSinceLastMove > this.moveInterval) {
+      this.timeSinceLastMove -= this.moveInterval;
 
-    let nextPosition = {
-      x: this.tetromino.position.x,
-      y: this.tetromino.position.y + 1
-    };
+      let nextPosition = Position.add(this.tetromino.position, {x: 0, y: 1});
 
-    if(this.canTetrominoMoveTo(nextPosition)) {
-      this.updateTetromino();
-    } else {
-      this.matrix.integrateTetromino(this.tetromino);
-      this.nextTetramino();
+      if(this.canTetrominoMoveTo(nextPosition)) {
+        this.tetromino.setPosition(nextPosition);
+      } else {
+        this.matrix.integrateTetromino(this.tetromino);
+        this.nextTetramino();
+      }
     }
   }
 
@@ -56,23 +55,11 @@ class Playground {
   }
 
   canTetrominoMoveTo(position) {
-    let matrixPositions = this.tetromino.filledCells().map((tetrominoPosition) => {
-      return { x: tetrominoPosition.x + position.x, y: tetrominoPosition.y + position.y };
+    let cellPositions = this.tetromino.cellPositions.map((cellPosition) => {
+      return Position.add(cellPosition, position);
     });
 
-    return matrixPositions.every((position) => {
-      return this.matrix.isValidPosition(position) &&
-             this.matrix.isEmpty(position);
-    });
-  }
-
-  updateTetromino() {
-    while(this.timeSinceLastMove > this.moveInterval) {
-      this.timeSinceLastMove -= this.moveInterval;
-
-      let position = {x: this.tetromino.position.x, y: this.tetromino.position.y + 1};
-
-      this.tetromino.setPosition(position);
-    }
+    return this.matrix.areValidPositions(cellPositions) &&
+           this.matrix.areEmptyPositions(cellPositions);
   }
 }

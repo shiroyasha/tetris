@@ -13,8 +13,16 @@ class Matrix {
            position.x < this.width && position.x >= 0;
   };
 
+  areValidPositions(positions) {
+    return positions.every((position) => this.isValidPosition(position));
+  }
+
   isEmpty(position) {
     return !this.isFilled(position);
+  }
+
+  areEmptyPositions(positions) {
+    return positions.every((position) => this.isEmpty(position));
   }
 
   isFilled(position) {
