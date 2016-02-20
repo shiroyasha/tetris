@@ -6,9 +6,9 @@ class Game {
   }
 
   start() {
-    this.loop();
-
     this.playground = new Playground();
+
+    this.loop();
   }
 
   loop() {
