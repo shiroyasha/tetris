@@ -30,23 +30,9 @@ class MatrixView {
     if(this.model.isFilled(position)) {
       let color = this.model.value(position);
 
-      this._renderFilledCell(x, y, color);
+      CellView.renderCell(this.graphic, x, y, color);
     } else {
-      this._renderEmptyCell(x, y);
+      CellView.renderEmptyCell(this.graphic, x, y);
     }
-  }
-
-  // private
-
-  _renderFilledCell(x, y, color) {
-    this.graphic.fillStyle = color;
-    this.graphic.fillRect(x, y, MatrixView.CELL_SIZE, MatrixView.CELL_SIZE);
-  }
-
-  _renderEmptyCell(x, y) {
-    this.graphic.strokeStyle = MatrixView.STROKE_COLOR
-    this.graphic.beginPath();
-    this.graphic.rect(x, y, MatrixView.CELL_SIZE, MatrixView.CELL_SIZE);
-    this.graphic.stroke();
   }
 }
