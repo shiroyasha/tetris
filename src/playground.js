@@ -1,6 +1,7 @@
 class Playground {
   constructor() {
     this.matrix = new Matrix(10, 24);
+    this.score = 0;
 
     this.timeSinceLastStep = 0;
     this.moveInterval = 300;
@@ -53,6 +54,7 @@ class Playground {
   clearFullLines() {
     for(let y=0; y < this.matrix.height; y++) {
       if(this.matrix.isFullLine(y)) {
+        this.score++;
         this.matrix.removeLine(y);
       }
     }

@@ -34,6 +34,6 @@ class Game {
   render(g) {
     g.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    PlaygroundView.render(graphic, this.playground);
+    PlaygroundView.render(g, this.playground);
   }
 }

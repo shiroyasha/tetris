@@ -4,6 +4,8 @@ class PlaygroundView {
     MatrixView.render(graphic, model.matrix);
 
     TetrominoView.render(graphic, model.tetromino);
+
+    ScoreView.render(model.score);
   }
 
 }
