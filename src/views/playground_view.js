@@ -1,11 +1,16 @@
 class PlaygroundView {
 
-  static render(graphic, model) {
-    MatrixView.render(graphic, model.matrix);
+  static render(graphics, model) {
+    graphics.save();
+    graphics.translate(model.matrix.width * CellView.SIZE, 0);
 
-    TetrominoView.render(graphic, model.tetromino);
+    ScoreView.render(graphics, model.score);
 
-    ScoreView.render(model.score);
+    graphics.restore();
+
+    MatrixView.render(graphics, model.matrix);
+
+    TetrominoView.render(graphics, model.tetromino);
   }
 
 }
