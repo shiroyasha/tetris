@@ -15,6 +15,7 @@ class Playground {
     Events.onRight(this.moveTetrominoBy.bind(this, {x: 1, y: 0}));
     Events.speedUp(() => { console.log("here"); this.fastFall = true; });
     Events.resetSpeed(() => { console.log("down"); this.fastFall = false; });
+    Events.onRotateLeft(this.rotateTetromino.bind(this));
   }
 
   render(g) {
@@ -74,6 +75,14 @@ class Playground {
 
     return this.matrix.areValidPositions(cellPositions) &&
            this.matrix.areEmptyPositions(cellPositions);
+  }
+
+  rotateTetromino() {
+    this.tetromino.rotateLeft();
+
+    if(!this.canTetrominoMoveTo(this.tetromino.position)) {
+      this.tetromino.rotateRight();
+    }
   }
 
   moveTetrominoBy(position) {

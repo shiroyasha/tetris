@@ -58,10 +58,8 @@ class EventsHandler {
         return this.callbacks.right;
       case 40:
         return this.callbacks.speedUp;
-      case 90:
+      case 38:
         return this.callbacks.rotateLeft;
-      case 88:
-        return this.callbacks.rotateRight;
       default:
         return [];
     }

@@ -42,10 +42,18 @@ class Tetromino {
   }
 
   rotateLeft() {
-    this.rotationIndex = (this.rotationIndex + 1) % this.shapes.length;
+    this.rotationIndex++;
+
+    if(this.rotationIndex >= this.shapes.length) {
+      this.rotationIndex = 0;
+    }
   }
 
   rotateRight() {
-    this.rotationIndex = (this.rotationIndex - 1) % this.shapes.length;
+    this.rotationIndex--;
+
+    if(this.rotationIndex <= 0) {
+      this.rotationIndex = this.shapes.length - 1;
+    }
   }
 }
