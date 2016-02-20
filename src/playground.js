@@ -21,7 +21,8 @@ class Playground {
 
   render(g) {
     this.tetromino.render(g);
-    this.matrix.render(g);
+
+    MatrixView.render(this.matrix, g);
   }
 
   update(dt) {

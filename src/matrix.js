@@ -3,9 +3,19 @@ class Matrix {
     this.width = width;
     this.height = height;
 
-    this.cellSize = 30;
-
     this.generateCells();
+  }
+
+  value(position) {
+    return this.cells[position.y][position.x];
+  }
+
+  forEachPosition(callback) {
+    for(let i=0; i < this.height; i++) {
+      for(let j=0; j < this.width; j++) {
+        callback({x: j, y: i});
+      }
+    }
   }
 
   isValidPosition(position) {
@@ -26,7 +36,7 @@ class Matrix {
   }
 
   isFilled(position) {
-    return this.cells[position.y][position.x];
+    return this.value(position) !== null;
   }
 
   generateCells() {
@@ -51,26 +61,6 @@ class Matrix {
           let y = i + tetromino.position.y;
 
           this.cells[y][x] = tetromino.color();
-        }
-      }
-    }
-  }
-
-  render(g) {
-    for(let i=4; i < this.height; i++) {
-      for(let j=0; j < this.width; j++) {
-        let x = j;
-        let y = i;
-        let cell = this.cells[y][x];
-
-        if(cell) {
-          g.fillStyle = cell;
-          g.fillRect(x*this.cellSize, (y-4)*this.cellSize, this.cellSize, this.cellSize);
-        } else {
-          g.strokeStyle = "#eeeeee";
-          g.beginPath();
-          g.rect(x*this.cellSize, (y-4)*this.cellSize, this.cellSize, this.cellSize);
-          g.stroke();
         }
       }
     }
