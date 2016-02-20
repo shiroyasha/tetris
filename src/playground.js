@@ -18,11 +18,6 @@ class Playground {
     Events.onRotateLeft(this.rotateTetromino.bind(this));
   }
 
-  render(g) {
-    MatrixView.render(g, this.matrix);
-    TetrominoView.render(g, this.tetromino);
-  }
-
   update(dt) {
     this.timeSinceLastStep += dt;
 
