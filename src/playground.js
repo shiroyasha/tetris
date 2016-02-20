@@ -18,9 +18,8 @@ class Playground {
   }
 
   render(g) {
-    this.tetromino.render(g);
-
-    MatrixView.render(this.matrix, g);
+    MatrixView.render(g, this.matrix);
+    TetrominoView.render(g, this.tetromino);
   }
 
   update(dt) {
@@ -42,6 +41,8 @@ class Playground {
       this.tetromino.setPosition(nextPosition);
     } else {
       this.integrate();
+      this.clearFullLines();
+      this.nextTetromino();
     }
   }
 
@@ -51,8 +52,14 @@ class Playground {
 
       this.matrix.set(matrixPosition, this.tetromino.color());
     });
+  }
 
-    this.nextTetromino();
+  clearFullLines() {
+    for(let y=0; y < this.matrix.height; y++) {
+      if(this.matrix.isFullLine(y)) {
+        this.matrix.removeLine(y);
+      }
+    }
   }
 
   nextTetromino() {

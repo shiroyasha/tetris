@@ -22,6 +22,26 @@ class Matrix {
     }
   }
 
+  isFullLine(y) {
+    for(let x=0; x < this.width; x++) {
+      if(this.cells[y][x] === null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  removeLine(y) {
+    console.log("removing line", y);
+
+    for(var i=y; i >= 1; i--) {
+      this.cells[i] = this.cells[i-1];
+    }
+
+    this.cells[0] = this.generateLine();
+  }
+
   isValidPosition(position) {
     return position.y < this.height && position.y >= 0 &&
            position.x < this.width && position.x >= 0;
@@ -47,11 +67,17 @@ class Matrix {
     this.cells = [];
 
     for(let i=0; i < this.height; i++) {
-      this.cells[i] = [];
-
-      for(let j=0; j < this.width; j++) {
-        this.cells[i][j] = null;
-      }
+      this.cells[i] = this.generateLine();
     }
+  }
+
+  generateLine() {
+    let result = [];
+
+    for(let j=0; j < this.width; j++) {
+      result[j] = null;
+    }
+
+    return result;
   }
 }
