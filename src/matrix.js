@@ -6,6 +6,10 @@ class Matrix {
     this.generateCells();
   }
 
+  set(position, value) {
+    this.cells[position.y][position.x] = value;
+  }
+
   value(position) {
     return this.cells[position.y][position.x];
   }
@@ -47,21 +51,6 @@ class Matrix {
 
       for(let j=0; j < this.width; j++) {
         this.cells[i][j] = null;
-      }
-    }
-  }
-
-  integrateTetromino(tetromino) {
-    let shape = tetromino.currentShape();
-
-    for(let i=0; i < 4; i++) {
-      for(let j=0; j < 4; j++) {
-        if(shape[i][j] === 1) {
-          let x = j + tetromino.position.x;
-          let y = i + tetromino.position.y;
-
-          this.cells[y][x] = tetromino.color();
-        }
       }
     }
   }

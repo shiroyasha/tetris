@@ -13,6 +13,16 @@ class Tetromino {
     return this.shapes[this.rotationIndex];
   }
 
+  eachCellPosition(callback) {
+    let shape = this.currentShape();
+
+    for(let i=0; i < 4; i++) {
+      for(let j=0; j < 4; j++) {
+        if(shape[i][j] === 1) callback({x: j, y: i});
+      }
+    }
+  }
+
   get cellPositions() {
     let shape = this.currentShape();
     let result = [];

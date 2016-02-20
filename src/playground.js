@@ -1,7 +1,5 @@
 class Playground {
   constructor() {
-    this.cellSize = 30;
-
     this.matrix = new Matrix(10, 24);
 
     this.timeSinceLastStep = 0;
@@ -48,7 +46,12 @@ class Playground {
   }
 
   integrate() {
-    this.matrix.integrateTetromino(this.tetromino);
+    this.tetromino.eachCellPosition((position) => {
+      let matrixPosition = Position.add(this.tetromino.position, position);
+
+      this.matrix.set(matrixPosition, this.tetromino.color());
+    });
+
     this.nextTetromino();
   }
 
