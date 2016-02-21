@@ -6,6 +6,8 @@ class MatrixView {
   }
 
   static renderCell(graphic, model, position) {
+    if(position.y < 4) return;
+
     if(model.isFilled(position)) {
       let color = model.value(position);
 

@@ -8,7 +8,7 @@ class Playground {
     this.fastFall = false;
 
     this.handleTetraminoEvents();
-    this.nextTetromino();
+    this.generateTetromino();
   }
 
   handleTetraminoEvents() {
@@ -39,7 +39,7 @@ class Playground {
     } else {
       this.integrate();
       this.clearFullLines();
-      this.nextTetromino();
+      this.generateTetromino();
     }
   }
 
@@ -60,9 +60,13 @@ class Playground {
     }
   }
 
-  nextTetromino() {
-    this.tetromino = new TetrominoFactory.generate();
-    this.tetromino.setPosition({ x: 4, y: 0 });
+  generateTetromino() {
+    if(!this.nextTetromino) {
+      this.nextTetromino = TetrominoFactory.generate();
+    }
+
+    this.tetromino = this.nextTetromino;
+    this.nextTetromino = TetrominoFactory.generate();
   }
 
   canTetrominoMoveTo(position) {
