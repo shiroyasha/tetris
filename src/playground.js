@@ -1,6 +1,6 @@
 class Playground {
   constructor() {
-    this.matrix = new Matrix(10, 24);
+    this.matrix = new TetrominoMatrix(10, 24);
     this.score = 0;
 
     this.timeSinceLastStep = 0;
@@ -32,31 +32,12 @@ class Playground {
   }
 
   nextStep() {
-    let nextPosition = Position.add(this.tetromino.position, {x: 0, y: 1});
+    let movementSucceded = this.moveTetrominoBy({x: 0, y: 1});
 
-    if(this.canTetrominoMoveTo(nextPosition)) {
-      this.tetromino.setPosition(nextPosition);
-    } else {
-      this.integrate();
-      this.clearFullLines();
+    if(!movementSucceded) {
+      this.matrix.integrate(this.tetromino);
+      this.score += this.matrix.clearFullLines();
       this.generateTetromino();
-    }
-  }
-
-  integrate() {
-    this.tetromino.eachCellPosition((position) => {
-      let matrixPosition = Position.add(this.tetromino.position, position);
-
-      this.matrix.set(matrixPosition, this.tetromino.color());
-    });
-  }
-
-  clearFullLines() {
-    for(let y=0; y < this.matrix.height; y++) {
-      if(this.matrix.isFullLine(y)) {
-        this.score++;
-        this.matrix.removeLine(y);
-      }
     }
   }
 
@@ -69,28 +50,23 @@ class Playground {
     this.nextTetromino = TetrominoFactory.generate();
   }
 
-  canTetrominoMoveTo(position) {
-    let cellPositions = this.tetromino.cellPositions.map((cellPosition) => {
-      return Position.add(cellPosition, position);
-    });
-
-    return this.matrix.areValidPositions(cellPositions) &&
-           this.matrix.areEmptyPositions(cellPositions);
-  }
-
   rotateTetromino() {
     this.tetromino.rotateLeft();
 
-    if(!this.canTetrominoMoveTo(this.tetromino.position)) {
+    if(!this.matrix.canFit(this.tetromino)) {
       this.tetromino.rotateRight();
     }
   }
 
   moveTetrominoBy(position) {
-    let newPosition = Position.add(this.tetromino.position, position);
+    let oldPosition = this.tetromino.position;
+    this.tetromino.setPosition(Position.add(this.tetromino.position, position));
 
-    if(this.canTetrominoMoveTo(newPosition)) {
-      this.tetromino.setPosition(newPosition);
+    if(!this.matrix.canFit(this.tetromino)) {
+      this.tetromino.setPosition(oldPosition);
+      return false;
+    } else {
+      return true;
     }
   }
 }
