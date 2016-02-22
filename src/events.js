@@ -51,7 +51,7 @@ class EventsHandler {
   }
 
   findKeyDownCallbacks(keyCode) {
-    switch(event.keyCode) {
+    switch(keyCode) {
       case 37:
         return this.callbacks.left;
       case 39:
@@ -66,7 +66,7 @@ class EventsHandler {
   }
 
   findKeyUpCallbacks(keyCode) {
-    switch(event.keyCode) {
+    switch(keyCode) {
       case 40:
         return this.callbacks.resetSpeed;
       default:
