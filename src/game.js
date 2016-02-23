@@ -28,7 +28,9 @@ class Game {
   }
 
   update(dt) {
-    this.playground.update(dt);
+    if(!this.playground.isFinished()) {
+      this.playground.update(dt);
+    }
   }
 
   render(g) {

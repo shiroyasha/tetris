@@ -9,6 +9,8 @@ class Playground {
 
     this.handleTetraminoEvents();
     this.generateTetromino();
+
+    this.state = "pending";
   }
 
   handleTetraminoEvents() {
@@ -31,13 +33,25 @@ class Playground {
     }
   }
 
+  isFinished() {
+    return this.state == "finished";
+  }
+
+  finish() {
+    this.state = "finished";
+  }
+
   nextStep() {
     let movementSucceded = this.moveTetrominoBy({x: 0, y: 1});
 
-    if(!movementSucceded) {
-      this.matrix.integrate(this.tetromino);
-      this.score += this.matrix.clearFullLines();
-      this.generateTetromino();
+    if(movementSucceded) return;
+
+    this.matrix.integrate(this.tetromino);
+    this.score += this.matrix.clearFullLines();
+    this.generateTetromino();
+
+    if(!this.matrix.canFit(this.tetromino)) {
+      this.finish();
     }
   }
 
