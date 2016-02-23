@@ -3,6 +3,10 @@ class PlaygroundView {
   static render(graphics, model) {
     PlaygroundView.renderSidebar(graphics, model);
     PlaygroundView.renderMatrix(graphics, model);
+
+    if(model.isFinished()) {
+      GameOverView.render(graphics);
+    }
   }
 
   static renderSidebar(graphics, model) {
