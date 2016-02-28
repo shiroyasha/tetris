@@ -33,8 +33,21 @@ class Playground {
     }
   }
 
+  isPending() {
+    return this.state == "pending";
+  }
+
+  isStarted() {
+    return this.state == "started";
+  }
+
   isFinished() {
     return this.state == "finished";
+  }
+
+  start() {
+    console.log("here");
+    this.state = "started";
   }
 
   finish() {

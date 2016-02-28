@@ -4,6 +4,10 @@ class PlaygroundView {
     PlaygroundView.renderSidebar(graphics, model);
     PlaygroundView.renderMatrix(graphics, model);
 
+    if(model.isPending()) {
+      NewGameView.render(graphics);
+    }
+
     if(model.isFinished()) {
       GameOverView.render(graphics);
     }
