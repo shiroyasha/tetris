@@ -3,6 +3,8 @@ class Game {
     this.canvas = canvas;
     this.canvasContext = this.canvas.getContext("2d");
     this.lastTick = null;
+
+    Events.onStart(this.startNewGame.bind(this));
   }
 
   start() {
@@ -16,6 +18,12 @@ class Game {
       this.step(timestamp);
       this.loop();
     });
+  }
+
+  startNewGame() {
+    if(this.playground.isFinished()) {
+      this.playground = new Playground();
+    }
   }
 
   step(timestamp) {

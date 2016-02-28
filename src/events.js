@@ -8,6 +8,7 @@ class EventsHandler {
       rotateRight: [],
       speedUp: [],
       resetSpeed: [],
+      start: [],
     };
 
     this.registerEventHandler();
@@ -42,6 +43,10 @@ class EventsHandler {
     this.callbacks.resetSpeed.push(action);
   }
 
+  onStart(action) {
+    this.callbacks.start.push(action);
+  }
+
   onKeyDown(event) {
     this.findKeyDownCallbacks(event.keyCode).forEach((callback) => { callback(); });
   }
@@ -60,6 +65,8 @@ class EventsHandler {
         return this.callbacks.speedUp;
       case 38:
         return this.callbacks.rotateLeft;
+      case 32:
+        return this.callbacks.start;
       default:
         return [];
     }
