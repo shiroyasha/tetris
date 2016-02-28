@@ -1,4 +1,4 @@
-class LTetromino extends Tetromino {
+class LTetromino {
   color() {
     return "orange";
   }

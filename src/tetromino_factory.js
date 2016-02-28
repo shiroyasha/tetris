@@ -11,11 +11,11 @@ class TetrominoFactory {
     ];
 
     let randomIndex = Math.randomInt(0, tetrominos.length);
+    let generator = new tetrominos[randomIndex]();
 
-    let tetromino = new tetrominos[randomIndex]();
+    let shapes = generator.generateShapes();
+    let color = generator.color();
 
-    tetromino.setPosition({ x: 4, y: 0 });
-
-    return tetromino;
+    return new Tetromino(shapes, color);
   }
 }

@@ -2,11 +2,9 @@ class NextTetrominoView {
 
   static render(graphics, model) {
     NextTetrominoView.renderTitle(graphics);
-    NextTetrominoView.renderBackgroung(graphics);
+    NextTetrominoView.renderBackground(graphics);
 
-    model.eachCellPosition((position) => {
-      CellView.render(graphics, position, model.color())
-    });
+    TetrominoView.render(graphics, model);
   }
 
   static renderTitle(graphics) {
@@ -17,7 +15,7 @@ class NextTetrominoView {
     graphics.fillText("NEXT", CellView.SIZE*2, -10, CellView.SIZE*4);
   }
 
-  static renderBackgroung(graphics) {
+  static renderBackground(graphics) {
     for(let y=0; y < 4; y++) {
       for(let x=0; x < 4; x++) {
         CellView.renderEmpty(graphics, {x: x, y: y});

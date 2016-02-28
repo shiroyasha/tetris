@@ -62,6 +62,8 @@ class Playground {
 
     this.tetromino = this.nextTetromino;
     this.nextTetromino = TetrominoFactory.generate();
+
+    this.tetromino.position = {x: 4, y: 0};
   }
 
   rotateTetromino() {
@@ -74,10 +76,12 @@ class Playground {
 
   moveTetrominoBy(position) {
     let oldPosition = this.tetromino.position;
-    this.tetromino.setPosition(Position.add(this.tetromino.position, position));
+    let newPosition = Position.add(this.tetromino.position, position);
+
+    this.tetromino.position = newPosition;
 
     if(!this.matrix.canFit(this.tetromino)) {
-      this.tetromino.setPosition(oldPosition);
+      this.tetromino.position = oldPosition;
       return false;
     } else {
       return true;

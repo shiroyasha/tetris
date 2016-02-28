@@ -1,7 +1,7 @@
-Math.modulo = function(a, b) {
+Math.mod = function(a, b) {
   let remainder = a % b;
 
-  return a < 0 ? b + a : a;
+  return remainder < 0 ? b + remainder : remainder;
 }
 
 Math.randomInt = function(a, b) {

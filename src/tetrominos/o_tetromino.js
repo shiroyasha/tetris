@@ -1,4 +1,4 @@
-class OTetromino extends Tetromino {
+class OTetromino {
   color() {
     return "yellow";
   }

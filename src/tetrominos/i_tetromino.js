@@ -1,4 +1,4 @@
-class ITetromino extends Tetromino {
+class ITetromino {
   color() {
     return "cyan";
   }

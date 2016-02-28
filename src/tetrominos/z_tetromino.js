@@ -1,4 +1,4 @@
-class ZTetromino extends Tetromino {
+class ZTetromino {
   color() {
     return "red";
   }

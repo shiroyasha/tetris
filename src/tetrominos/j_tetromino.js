@@ -1,4 +1,4 @@
-class JTetromino extends Tetromino {
+class JTetromino {
   color() {
     return "blue";
   }

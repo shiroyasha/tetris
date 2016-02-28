@@ -1,4 +1,4 @@
-class STetromino extends Tetromino {
+class STetromino {
   color() {
     return "green";
   }

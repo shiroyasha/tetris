@@ -4,20 +4,14 @@ class TetrominoMatrix extends Matrix {
   }
 
   integrate(tetromino) {
-    tetromino.eachCellPosition((position) => {
-      let matrixPosition = Position.add(tetromino.position, position);
-
-      this.set(matrixPosition, tetromino.color());
+    tetromino.cellPositions.forEach((position) => {
+      this.set(position, tetromino.color);
     });
   }
 
   canFit(tetromino) {
-    let cellPositions = tetromino.cellPositions.map((cellPosition) => {
-      return Position.add(cellPosition, tetromino.position);
-    });
-
-    return this.areValidPositions(cellPositions) &&
-           this.areEmptyPositions(cellPositions);
+    return this.areValidPositions(tetromino.cellPositions) &&
+           this.areEmptyPositions(tetromino.cellPositions);
   }
 
   clearFullLines() {

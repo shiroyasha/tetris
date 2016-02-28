@@ -1,30 +1,13 @@
 class Tetromino {
-  constructor(position) {
-    this.cellSize = 30;
-    this.shapes = this.generateShapes();
+  constructor(shapes, color) {
+    this.position = {x: 0, y: 0};
     this.rotationIndex = 0;
-  }
-
-  setPosition(position) {
-    this.position = position;
-  }
-
-  currentShape() {
-    return this.shapes[this.rotationIndex];
-  }
-
-  eachCellPosition(callback) {
-    let shape = this.currentShape();
-
-    for(let i=0; i < 4; i++) {
-      for(let j=0; j < 4; j++) {
-        if(shape[i][j] === 1) callback({x: j, y: i});
-      }
-    }
+    this.shapes = shapes;
+    this.color = color;
   }
 
   get cellPositions() {
-    let shape = this.currentShape();
+    let shape = this.shapes[this.rotationIndex];
     let result = [];
 
     for(let i=0; i < 4; i++) {
@@ -35,25 +18,14 @@ class Tetromino {
       }
     }
 
-    return result;
-  }
-
-  update(dt) {
+    return Position.translate(result, this.position);
   }
 
   rotateLeft() {
-    this.rotationIndex++;
-
-    if(this.rotationIndex >= this.shapes.length) {
-      this.rotationIndex = 0;
-    }
+    this.rotationIndex = Math.mod(this.rotationIndex + 1, this.shapes.length);
   }
 
   rotateRight() {
-    this.rotationIndex--;
-
-    if(this.rotationIndex <= 0) {
-      this.rotationIndex = this.shapes.length - 1;
-    }
+    this.rotationIndex = Math.mod(this.rotationIndex - 1, this.shapes.length);
   }
 }
