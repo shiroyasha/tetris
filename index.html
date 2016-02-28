@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tetris</title>
+    <meta charset="utf8"></meta>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+    <style>
+       body {
+         background: black;
+         color: white;
+         font-size: 18px;
+         font-family: "Open Sans", sans-serif;
+       }
+
+       canvas {
+         margin: auto;
+         display: block;
+       }
+
+       footer {
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+         text-align: center;
+         padding: 20px;
+         color: white;
+         font-size: 16px;
+       }
+
+       footer a {
+         color: orange;
+         text-decoration: none;
+       }
+
+       footer a:hover {
+         text-decoration: underline;
+       }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width=600 height=800></canvas>
+
+    <footer class="footer">
+      Developed by <a href="https://twitter.com/igor_sarcevic" target="_blank">Igor Šarčević</a>.
+      Tested and deployed with <a href="https://semaphoreci.com" target="_blank">SemaphoreCI</a>.
+    </footer>
+
+    <script src="build/math.js"></script>
+    <script src="build/rounded_rect.js"></script>
+
+    <!-- views -->
+    <script src="build/views/matrix_view.js"></script>
+    <script src="build/views/tetromino_view.js"></script>
+    <script src="build/views/next_tetromino_view.js"></script>
+    <script src="build/views/cell_view.js"></script>
+    <script src="build/views/playground_view.js"></script>
+    <script src="build/views/score_view.js"></script>
+    <script src="build/views/new_game_view.js"></script>
+    <script src="build/views/game_over_view.js"></script>
+
+    <!-- models -->
+
+    <script src="build/tetromino.js"></script>
+    <script src="build/tetrominos/i_tetromino.js"></script>
+    <script src="build/tetrominos/j_tetromino.js"></script>
+    <script src="build/tetrominos/l_tetromino.js"></script>
+    <script src="build/tetrominos/o_tetromino.js"></script>
+    <script src="build/tetrominos/s_tetromino.js"></script>
+    <script src="build/tetrominos/t_tetromino.js"></script>
+    <script src="build/tetrominos/z_tetromino.js"></script>
+
+    <script src="build/position.js"></script>
+    <script src="build/events.js"></script>
+    <script src="build/matrix.js"></script>
+    <script src="build/tetromino_matrix.js"></script>
+
+    <script src="build/playground.js"></script>
+    <script src="build/tetromino_factory.js"></script>
+
+    <script src="build/game.js"></script>
+    <script src="build/app.js"></script>
+  </body>
+<html>
